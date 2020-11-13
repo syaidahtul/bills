@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+
+	<!-- Templates -->
+	<definition name="publictemplate" template="/WEB-INF/jsp/layouts/publictemplate.jsp">
+		<put-attribute name="title" value="DAFTAR BIL" />
+		<put-attribute name="header" value="/WEB-INF/jsp/views/header.jsp" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="footer" value="/WEB-INF/jsp/views/footer.jsp" />
+	</definition>
+	
+	<definition name="securedtemplate" template="/WEB-INF/jsp/layouts/securedtemplate.jsp">
+		<put-attribute name="body" value="" />
+	</definition>
+
+	<!-- Pages -->
+	<definition name="secured.dashboard" extends="securedtemplate">
+		<put-attribute name="title" value="DAFTAR BIL | Dashboard" />
+		<put-attribute name="body" value="/WEB-INF/jsp/views/home/home.jsp" />
+	</definition>
+	
+	<definition name="secured.category.list" extends="securedtemplate">
+		<put-attribute name="title" value="DAFTAR BIL | Category" />
+		<put-attribute name="body" value="/WEB-INF/jsp/views/secured/categories.jsp" />
+	</definition>
+
+	<definition name="secured.bills" extends="securedtemplate">
+		<put-attribute name="title" value="DAFTAR BIL | Bill" />
+		<put-attribute name="body" value="/WEB-INF/jsp/views/secured/bills/bills.jsp" />
+	</definition>
+
+	<definition name="secured.bill.new" extends="securedtemplate">
+		<put-attribute name="title" value="DAFTAR BIL | Bill" />
+		<put-attribute name="body" value="/WEB-INF/jsp/views/secured/bills/billnew.jsp" />
+	</definition>
+	
+</tiles-definitions>
