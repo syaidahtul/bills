@@ -43,6 +43,7 @@ public class BillController {
 	@GetMapping()
 	public String getBillsView(Locale locale, HttpServletRequest req, Model model) {
 		BillForm billForm = new BillForm(); 
+		billForm.setBillStatus(billService.getStatusList());
 		billForm.setCategories(categoryService.getCategoryList());
 		model.addAttribute("billForm", billForm);
 		return "secured.bills";

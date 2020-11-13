@@ -24,94 +24,38 @@
 				</div>
 
 				<div class="card-body">
+				
 					<div class="form-group row">
-						<label class="col-md-2 col-form-label mandatory" for="categoryCode"> 
+						<label class="col-md-2 col-form-label" for="categoryCode"> 
 							<spring:message code="bill.category" />
 						</label>
-						<div class="col-md-2">
+						<div class="col-md-5">
 							<form:select path="bill.billCategory" id="categoryCode" class="form-control">
 								<form:option value=""><spring:message code="label.select"/></form:option>
 	      						<form:options items="${billForm.categories}" itemValue="code" itemLabel="name"/>
 							</form:select>
 						</div>
-					</div>
-													
+						<label class="col-md-2 col-form-label" for="billStatus"> 
+							<spring:message code="bill.status" />
+						</label>
+						<div class="col-md-3">
+							<form:select path="bill.billStatus" id="billStatus" class="form-control">
+								<form:option value=""><spring:message code="label.select"/></form:option>
+	      						<form:options items="${billForm.billStatus}" itemValue="code" itemLabel="name"/>
+							</form:select>
+						</div>
+					</div>				
 					
 					<div class="form-group row">
-						<label class="col-md-2 col-form-label mandatory" for="receiver"> 
+						<label class="col-md-2 col-form-label" for="receiver"> 
 							<spring:message code="bill.receiver" />
 						</label>
-						<div class="col-md-8">
+						<div class="col-md-10">
 							<form:input path="bill.receiver" id="receiver" class="form-control" />
 						</div>
 					</div>
-					
-					<div class="form-group row">
-						<label class="col-md-2 col-form-label mandatory" for="amount"> 
-							<spring:message code="bill.amount" />
-						</label>
-						<div class="col-md-2">
-							<form:input path="bill.amount" id="amount" class="form-control" />
-						</div>
-					</div>
-					
-					<div class="form-group row">
-						<label class="col-md-2 col-form-label mandatory" for="receiveDate"> 
-							<spring:message code="bill.receivedDate" />
-						</label>
-						<div class="col-md-2">
-							<form:input path="bill.billReceivedDate" id="receiveDate" class="form-control" />
-						</div>
-					</div>
-					
-					<div class="form-group row">
-						<label class="col-md-2 col-form-label mandatory" for="reference"> 
-							<spring:message code="bill.reference" />
-						</label>
-						<div class="col-md-8">
-							<form:input path="bill.reference" id="reference" class="form-control" />
-						</div>
-					</div>
-					
-					<div class="form-group row">
-						<label class="col-md-2 col-form-label mandatory" for="billDate"> 
-							<spring:message code="bill.billDate" />
-						</label>
-						<div class="col-md-2">
-							<form:input path="bill.billDate" id="billDate" class="form-control" />
-						</div>
-					</div>
-					
-					<div class="form-group row">
-						<label class="col-md-2 col-form-label mandatory" for="votCode"> 
-							<spring:message code="bill.votCode" />
-						</label>
-						<div class="col-lg-4 col-md-9 col-sm-12">
-							<select class="form-control select2" id="votCode" name="bill.votCode">
-								<option label="Label"></option>
-							</select>
-						</div>
-					</div>
-					
-					<div class="form-group row">
-						<label class="col-md-2 col-form-label mandatory" for="contractNo"> 
-							<spring:message code="bill.contractNo" />
-						</label>
-						<div class="col-md-4">
-							<form:input path="bill.contractNo" id="contractNo" class="form-control" />
-						</div>
-					</div>
-					
-					<div class="form-group row">
-						<label class="col-md-2 col-form-label mandatory" for="remarks"> 
-							<spring:message code="bill.remarks" />
-						</label>
-						<div class="col-md-8">
-							<form:textarea path="bill.remarks" id="remarks" class="form-control"  />
-						</div>
-					</div>
 				</div>
-
+				
 				<div class="card-footer">
 					<form:button id="searchBtn" name="action" value="search" class="btn btn-primary ripple-surface mb-0"><spring:message code="button.search" /></form:button>
 					<form:button id="newBtn" name="action" value="new" class="btn btn-primary ripple-surface mb-0"><spring:message code="button.new" /></form:button>
@@ -173,10 +117,9 @@
 		
 		<div class="card-body">			
 			<!--begin: Datatable-->
-			<table class="table table-bordered table-hover table-checkable" id="categories_datatable">
+			<table class="table table-bordered table-hover table-checkable" id="bill_datatable">
 				<thead>
 					<tr>
-						<th><spring:message code="label.no"/></th>
 						<th><spring:message code="bill.receiver"/></th>
 						<th><spring:message code="bill.amount"/></th>
 						<th><spring:message code="bill.reference"/></th>
@@ -211,7 +154,6 @@ $(document).ready(function() {
 		}
 	});
 	
-
 	$('#bill_datatable').dataTable({
         'sAjaxSource': '/secured/bills',
 		"sAjaxDataProp": "",
@@ -227,27 +169,7 @@ $(document).ready(function() {
             { 'mData': 'category' },
             { 'mData': 'status' }
         ]
-    }); 
-
-	var $select = $('#votCode');
-	
-	var $option = $('<option selected>Loading...</option>').val("C021090000000102000000000047000");
-
-	$select.append($option).trigger('change'); // append the option and update Select2
-
-	$.ajax({ // make the request for the selected data object
-	  type: 'GET',
-	  url: '/secured/dropdown/votCode',
-	  dataType: 'json',
-	  data: {
-		 return $option.text(data.BUD_DESC).val(data.BUD_CODE)
-	  }
-	}).then(function (data) {
-	  console.log(data);
-	  $option.text(data.BUD_DESC).val(data.BUD_CODE); // update the text that is displayed (and maybe even the value)
-	  $option.removeData(); // remove any caching data that might be associated
-	  $select.trigger('change'); // notify JavaScript components of possible changes
-	});
+    });
 });
 
     
