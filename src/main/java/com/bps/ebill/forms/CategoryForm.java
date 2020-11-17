@@ -14,6 +14,8 @@ public class CategoryForm extends AbstractForm {
 	private static final long serialVersionUID = 705214124871219339L;
 
 	public Set<CategoryDTO> categoryList;
+
+	public CategoryDTO searchCategory;
 	
 	public CategoryDTO category;
 }

@@ -1,5 +1,5 @@
 <%@ include file="../../../commontags.jsp"%>
-<spring:url var="postUrl" value="/secured/setup/bill" />
+<spring:url var="postUrl" value="/secured/bill/new" />
 
 <div class="container">
 
@@ -114,7 +114,7 @@
 
 				<div class="card-footer">
 					<form:button id="searchBtn" name="action" value="search" class="btn btn-primary ripple-surface mb-0"><spring:message code="button.search" /></form:button>
-					<button type="button" class="btn btn-primary ripple-surface mb-0" data-toggle="modal" data-target="#newBillModal"><spring:message code="button.new" /></button>
+					<form:button id="saveBtn" name="action" value="save" class="btn btn-primary ripple-surface mb-0"><spring:message code="button.save" /></form:button>
 					<form:button id="backBtn" name="action" value="back" class="btn btn-primary ripple-surface mb-0"><spring:message code="button.back" /></form:button>
 				</div>
 			</div>

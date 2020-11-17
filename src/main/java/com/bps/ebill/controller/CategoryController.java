@@ -57,7 +57,7 @@ public class CategoryController {
 			this.searchCategory(categoryForm, result, model);
 		}
 		
-		if (WebConstant.ACTION_NEW.equalsIgnoreCase(categoryForm.getAction())) {
+		if (WebConstant.ACTION_SAVE.equalsIgnoreCase(categoryForm.getAction())) {
 			this.newCategory(categoryForm, result, model);
 		}
 		
@@ -78,7 +78,8 @@ public class CategoryController {
 
 		}
 		
-		categoryService.save(categoryForm.getCategory());    
+		categoryService.save(categoryForm.getCategory());
+		categoryForm.setCategory(null);
 		return "";
 	}
 	

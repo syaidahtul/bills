@@ -1,5 +1,7 @@
 package com.bps.ebill.services;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 import com.bps.ebill.dto.BillDTO;
@@ -10,5 +12,9 @@ public interface BillService {
 	public List<BillDTO> getBillList();
 
 	public List<BillStatus> getStatusList();
+
+	public int getDuplicateNewBill(String billCategory, String receiver, BigDecimal amount, Date billDate, String status);
+
+	public BillDTO save(BillDTO bill);
 
 }

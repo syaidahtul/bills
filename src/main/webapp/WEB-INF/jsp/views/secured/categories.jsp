@@ -29,13 +29,13 @@
 							<spring:message code="label.code" />
 						</label>
 						<div class="col-md-2">
-							<form:input path="category.code" id="categoryCode" class="form-control" />
+							<form:input path="searchCategory.code" id="categoryCode" class="form-control" />
 						</div>
 						<label class="col-md-2 col-form-label mandatory" for="categoryName"> 
 							<spring:message code="label.name" />
 						</label>
 						<div class="col-md-5">
-							<form:input path="category.name" id="categoryName" class="form-control" />
+							<form:input path="searchCategory.name" id="categoryName" class="form-control" />
 						</div>
 					</div>
 				</div>
@@ -58,10 +58,25 @@
 		                </button>
 		            </div>
 		            <div class="modal-body">
-		                ...
+						<div class="form-group row">
+							<label class="col-md-3 col-form-label mandatory" for="newCategoryCode"> 
+								<spring:message code="label.code" />
+							</label>
+							<div class="col-md-8">
+								<form:input path="category.code" id="newCategoryCode" class="form-control" />
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-md-3 col-form-label mandatory" for="newCategoryName"> 
+								<spring:message code="label.name" />
+							</label>
+							<div class="col-md-8">
+								<form:input path="category.name" id="newCategoryName" class="form-control" />
+							</div>
+						</div>
 		            </div>
 		            <div class="modal-footer">
-		            	<form:button name="action" value="back" class="btn btn-primary font-weight-bold"><spring:message code="button.save" /></form:button>
+		            	<form:button name="action" value="save" class="btn btn-primary font-weight-bold"><spring:message code="button.save" /></form:button>
 		                <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal"><spring:message code="button.cancel" /></button>
 					</div>
 		        </div>
@@ -79,7 +94,7 @@
 				<span class="card-icon">
 					<i class="flaticon2-delivery-package text-primary"></i>
 				</span>
-				<h3 class="card-label"><spring:message code="label.list" arguments="Categories"/></h3>
+				<h3 class="card-label"><spring:message code="label.list"/><spring:message code="title.category" /></h3>
 			</div>
 			<div class="card-toolbar">
 				<a href="#" class="btn btn-icon btn-sm btn-light-primary mr-1" data-card-tool="toggle">
@@ -110,12 +125,6 @@
 					<!--end::Dropdown Menu-->
 				</div>
 				<!--end::Dropdown-->
-				<!--begin::Button-->
-				<a href="#" class="btn btn-primary font-weight-bolder">
-					<i class="flaticon2-add-square text-dark"></i>
-					<spring:message code="label.create" arguments="Category"/>
-				</a>
-				<!--end::Button-->
 			</div>
 		</div>
 		
@@ -153,9 +162,7 @@
 			}
 		});
 		
-
 		$('#categories_datatable').dataTable({
-			
 	        'sAjaxSource': '/secured/setup/categories',
 			"sAjaxDataProp": "",
 			"order": [[ 0, "asc" ]],

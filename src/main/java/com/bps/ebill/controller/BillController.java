@@ -1,5 +1,10 @@
 package com.bps.ebill.controller;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -7,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.beans.propertyeditors.CustomNumberEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,9 +28,11 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.bps.ebill.dto.BillDTO;
 import com.bps.ebill.forms.BillForm;
+import com.bps.ebill.helpers.AppConstant;
 import com.bps.ebill.helpers.WebConstant;
 import com.bps.ebill.services.BillService;
 import com.bps.ebill.services.CategoryService;
+import com.bps.ebill.validators.BillsValidator;
 
 @Controller
 @RequestMapping("/secured/bill")
@@ -38,6 +47,17 @@ public class BillController {
 
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
+		SimpleDateFormat sdfFullTime = new SimpleDateFormat(AppConstant.DATE_TIME_FORMAT);
+		binder.registerCustomEditor(Date.class, "bill.billDate", new CustomDateEditor(sdfFullTime, true));
+		binder.registerCustomEditor(Date.class, "bill.billReceivedDate", new CustomDateEditor(sdfFullTime, true));
+
+		DecimalFormat decimalFormat = new DecimalFormat();
+		DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+		symbols.setDecimalSeparator('.');
+		symbols.setGroupingSeparator(',');
+		decimalFormat.setDecimalFormatSymbols(symbols);
+		decimalFormat.setMaximumFractionDigits(2);
+		binder.registerCustomEditor(BigDecimal.class, "bill.amount", new CustomNumberEditor(BigDecimal.class, decimalFormat, true));
 	}
 	
 	@GetMapping()
@@ -66,7 +86,9 @@ public class BillController {
 		}
 		
 		if (WebConstant.ACTION_NEW.equalsIgnoreCase(billForm.getAction())) {
-			billForm.setBill(new BillDTO());
+			BillDTO dto = new BillDTO();
+			dto.setBillStatus("BARU");
+			billForm.setBill(dto);
 			model.addAttribute("billForm", billForm);
 			return "secured.bill.new";
 		}
@@ -74,5 +96,22 @@ public class BillController {
 		return "secured.bills";
 	}
 	
+
+	@PostMapping("/new")
+	public String newBill(Locale locale, HttpServletRequest req, HttpServletResponse resp, Model model,
+			@ModelAttribute("billForm") BillForm billForm, BindingResult result) {
+		
+		BillsValidator validator = new BillsValidator(billService);
+		validator.validate(billForm, result);
+		
+		if (result.hasErrors()) {
+			return "secured.bill.new";
+		} else {
+			billService.save(billForm.getBill());
+			billForm.setBill(new BillDTO());
+			return "secured.bills";
+		}
+
+	}
 	
 }
