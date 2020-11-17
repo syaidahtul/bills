@@ -176,6 +176,8 @@
 		};
 	</script>
 	<!--end::Global Config-->
+	<script src="/resources/assets/js/pages/crud/forms/widgets/bootstrap-datepicker.js"></script>
+	<script src="/resources/assets/js/pages/crud/forms/widgets/input-mask.js"></script>
 	<script src="/resources/assets/js/pages/crud/forms/widgets/select2.js"></script>
 	<script src="/resources/assets/plugins/custom/datatables/datatables.bundle.js"></script>
 	<script src="/resources/assets/js/pages/crud/datatables/basic/basic.js"></script>

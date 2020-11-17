@@ -3,7 +3,6 @@ package com.bps.ebill.services.impl;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +52,12 @@ public class BillServiceImpl implements BillService {
 	}
 
 	@Override
+	public int getDuplicateVoucherNo(String voucherNo) {
+		List<Bills> bills = billRepository.findAllByVoucherNo(voucherNo);
+		return bills.size();
+	}
+
+	@Override
 	public BillDTO save(BillDTO billDTO) {
 		Bills bill = this.dtoToObj(billDTO); 
 		bill = billRepository.save(bill);
@@ -74,7 +79,7 @@ public class BillServiceImpl implements BillService {
 		bill.setVotCode(dto.getVotCode());
 		bill.setPtjCode("");
 		bill.setDepartmentCode("");
-		return null;
+		return bill;
 	}
 
 	private BillStatus getStatus(String billStatus) {

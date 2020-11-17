@@ -15,6 +15,8 @@ public interface BillService {
 
 	public int getDuplicateNewBill(String billCategory, String receiver, BigDecimal amount, Date billDate, String status);
 
+	public int getDuplicateVoucherNo(String voucherNo);
+
 	public BillDTO save(BillDTO bill);
 
 }

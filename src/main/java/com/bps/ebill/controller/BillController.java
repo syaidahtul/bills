@@ -47,9 +47,9 @@ public class BillController {
 
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
-		SimpleDateFormat sdfFullTime = new SimpleDateFormat(AppConstant.DATE_TIME_FORMAT);
-		binder.registerCustomEditor(Date.class, "bill.billDate", new CustomDateEditor(sdfFullTime, true));
-		binder.registerCustomEditor(Date.class, "bill.billReceivedDate", new CustomDateEditor(sdfFullTime, true));
+		SimpleDateFormat sdf = new SimpleDateFormat(AppConstant.DATE_FORMAT);
+		binder.registerCustomEditor(Date.class, "bill.billDate", new CustomDateEditor(sdf, true));
+		binder.registerCustomEditor(Date.class, "bill.billReceivedDate", new CustomDateEditor(sdf, true));
 
 		DecimalFormat decimalFormat = new DecimalFormat();
 		DecimalFormatSymbols symbols = new DecimalFormatSymbols();
@@ -57,7 +57,7 @@ public class BillController {
 		symbols.setGroupingSeparator(',');
 		decimalFormat.setDecimalFormatSymbols(symbols);
 		decimalFormat.setMaximumFractionDigits(2);
-		binder.registerCustomEditor(BigDecimal.class, "bill.amount", new CustomNumberEditor(BigDecimal.class, decimalFormat, true));
+		binder.registerCustomEditor(BigDecimal.class, new CustomNumberEditor(BigDecimal.class, decimalFormat, true));
 	}
 	
 	@GetMapping()
@@ -86,32 +86,39 @@ public class BillController {
 		}
 		
 		if (WebConstant.ACTION_NEW.equalsIgnoreCase(billForm.getAction())) {
-			BillDTO dto = new BillDTO();
-			dto.setBillStatus("BARU");
-			billForm.setBill(dto);
-			model.addAttribute("billForm", billForm);
+			this.reset(billForm, model);
 			return "secured.bill.new";
 		}
 		
 		return "secured.bills";
 	}
-	
 
 	@PostMapping("/new")
 	public String newBill(Locale locale, HttpServletRequest req, HttpServletResponse resp, Model model,
 			@ModelAttribute("billForm") BillForm billForm, BindingResult result) {
 		
-		BillsValidator validator = new BillsValidator(billService);
-		validator.validate(billForm, result);
-		
-		if (result.hasErrors()) {
+		if (WebConstant.ACTION_CLEAR.equalsIgnoreCase(billForm.getAction())) {
+			this.reset(billForm, model);
 			return "secured.bill.new";
 		} else {
-			billService.save(billForm.getBill());
-			billForm.setBill(new BillDTO());
-			return "secured.bills";
+			BillsValidator validator = new BillsValidator(billService);
+			validator.validate(billForm, result);
+			
+			if (result.hasErrors()) {
+				return "secured.bill.new";
+			} else {
+				billService.save(billForm.getBill());
+				billForm.setBill(new BillDTO());
+				return "secured.bills";
+			}
 		}
-
+	}
+	
+	private void reset(BillForm billForm, Model model) {
+		BillDTO dto = new BillDTO();
+		dto.setBillStatus("BARU");
+		billForm.setBill(dto);
+		model.addAttribute("billForm", billForm);
 	}
 	
 }

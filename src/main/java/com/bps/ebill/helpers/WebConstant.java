@@ -3,7 +3,7 @@ package com.bps.ebill.helpers;
 public interface WebConstant {
 	
 	public static final String ACTION_NEW = "new";
-	public static final String ACTION_RESET = "reset";
+	public static final String ACTION_CLEAR = "clear";
 	public static final String ACTION_EDIT = "edit";
 	public static final String ACTION_DELETE = "delete";
 	public static final String ACTION_BACK = "back";

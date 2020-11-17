@@ -24,18 +24,39 @@ public class BillsValidator implements Validator {
 	@Override
 	public void validate(Object obj, Errors errors) {
 		BillForm form = BillForm.class.cast(obj);
+
+		ValidationUtils.rejectIfEmpty(errors, "bill.billCategory", "error.required", new Object[] {"Amount"});
+		ValidationUtils.rejectIfEmpty(errors, "bill.receiver", "error.required", new Object[] {"Receiver's Name"});
+		ValidationUtils.rejectIfEmpty(errors, "bill.amount", "error.required", new Object[] {"Amount"});
+		ValidationUtils.rejectIfEmpty(errors, "bill.billReceivedDate", "error.required", new Object[] {"Amount"});
+		ValidationUtils.rejectIfEmpty(errors, "bill.reference", "error.required", new Object[] {"Amount"});
+		ValidationUtils.rejectIfEmpty(errors, "bill.billDate", "error.required", new Object[] {"Amount"});
+		// ValidationUtils.rejectIfEmpty(errors, "bill.votCode", "error.required", new Object[] {"bill.votCode"});
 		
-		ValidationUtils.rejectIfEmpty(errors, "bill.receiver", "error.required", new Object[] {""});
+		BillDTO dto = form.getBill();
+		
+		if (errors.getErrorCount() == 0) {
+			// 1. check duplicate bill
+			int duplicateRecord = service.getDuplicateNewBill(dto.getBillCategory(), dto.getReceiver(), dto.getAmount(), dto.getBillDate(), "BATAL");
+			if (duplicateRecord > 0) {
+				errors.reject("error.duplicate", new Object[] { dto.getReceiver() }, "error.duplicate");
+			}
+		}
+	}
+	
+	public void validateEdit(Object obj, Errors errors) {
+		BillForm form = BillForm.class.cast(obj);
+		
+		ValidationUtils.rejectIfEmpty(errors, "bill.receiver", "error.required", new Object[] {"Receiver's Name"});
 		ValidationUtils.rejectIfEmpty(errors, "bill.amount", "error.required", new Object[] {"Amount"});
 		
 		BillDTO dto = form.getBill();
 		
 		if (errors.getErrorCount() == 0) {
-			// 1. check duplicate bill 
-			// "SELECT * FROM dbo.Daftar_Bil where STATUS_BIL <> 'BATAL' AND Nama_Penerima like ? and Amaun like ? and Tarikh_Tuntutan = ? and Kategori_Bil like ?"
-			int duplicateRecord = service.getDuplicateNewBill(dto.getBillCategory(), dto.getReceiver(), dto.getAmount(), dto.getBillDate(), "BATAL");
-			if (duplicateRecord > 0) {
-				errors.reject("error.duplicate", new Object[] { dto.getReceiver() }, "error.duplicate");
+			// 1. check duplicate voucher no
+			int duplicateVoucher = service.getDuplicateVoucherNo(dto.getVoucherNo());
+			if (duplicateVoucher > 0) {
+				errors.reject("error.duplicate", new Object[] { dto.getVoucherNo() }, "error.duplicate");
 			}
 		}
 	}

@@ -18,4 +18,6 @@ public interface BillRepository extends JpaRepository<Bills, Long>{
 	List<Bills> findDuplicateBill(@Param("category") String billCategory, @Param("receiver") String receiver, @Param("amount") BigDecimal amount, 
 			@Param("billDate") Date billDate, @Param("status") String status);
 
+	List<Bills> findAllByVoucherNo(String voucherNo);
+
 }
