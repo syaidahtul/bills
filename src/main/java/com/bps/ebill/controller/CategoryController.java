@@ -42,7 +42,8 @@ public class CategoryController {
 	
 	@GetMapping(value = "/categories")
 	public @ResponseBody List<CategoryDTO> getCategoryList() {
-		return categoryService.getCategoryList();
+		List<CategoryDTO> s = categoryService.getCategoryList();
+		return s;
 	}
 	
 	@PostMapping(value = "/category")

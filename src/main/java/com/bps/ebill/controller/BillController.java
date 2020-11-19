@@ -69,7 +69,7 @@ public class BillController {
 		return "secured.bills";
 	}
 	
-	@GetMapping("/bills")
+	@GetMapping("/list")
 	public @ResponseBody List<BillDTO> getBillList() {
 		return billService.getBillList();
 	}

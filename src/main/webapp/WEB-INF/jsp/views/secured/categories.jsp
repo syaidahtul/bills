@@ -41,9 +41,9 @@
 				</div>
 
 				<div class="card-footer">
-					<form:button name="action" value="search" class="btn btn-primary ripple-surface mb-0"><spring:message code="button.search" /></form:button>
+					<form:button id="searchCategoryBtn" name="action" value="search" class="btn btn-primary ripple-surface mb-0"><spring:message code="button.search" /></form:button>
 					<button type="button" class="btn btn-primary ripple-surface mb-0" data-toggle="modal" data-target="#newCategoryModal"><spring:message code="button.new" /></button>
-					<form:button name="action" value="back" class="btn btn-primary ripple-surface mb-0"><spring:message code="button.back" /></form:button>
+					<form:button id="backCategoryBtn" name="action" value="back" class="btn btn-primary ripple-surface mb-0"><spring:message code="button.back" /></form:button>
 				</div>
 			</div>
 		</div>
@@ -76,7 +76,7 @@
 						</div>
 		            </div>
 		            <div class="modal-footer">
-		            	<form:button name="action" value="save" class="btn btn-primary font-weight-bold"><spring:message code="button.save" /></form:button>
+		            	<form:button id="saveCategoryBtn" name="action" value="save" class="btn btn-primary font-weight-bold"><spring:message code="button.save" /></form:button>
 		                <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal"><spring:message code="button.cancel" /></button>
 					</div>
 		        </div>

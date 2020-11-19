@@ -41,6 +41,18 @@
 	<script src="/resources/assets/plugins/custom/prismjs/prismjs.bundle.js"></script>
 	<script src="/resources/assets/js/scripts.bundle.js"></script>
 	<!--end::Global Theme Bundle-->
+	
+	<script type="text/javascript">
+
+	$(function () {
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
+		$(document).ajaxSend(function(e, xhr, options) {
+			xhr.setRequestHeader(header, token);
+		});
+	});
+
+	</script>  
 </head>
 <!--end::Head-->
 
@@ -176,11 +188,12 @@
 		};
 	</script>
 	<!--end::Global Config-->
-	<script src="/resources/assets/js/pages/crud/forms/widgets/bootstrap-datepicker.js"></script>
+	
+	<script src="resources/assets/js/pages/crud/forms/widgets/bootstrap-datepicker.js"></script>
 	<script src="/resources/assets/js/pages/crud/forms/widgets/input-mask.js"></script>
+	<script src="/resources/assets/js/pages/crud/datatables/basic/basic.js"></script>
 	<script src="/resources/assets/js/pages/crud/forms/widgets/select2.js"></script>
 	<script src="/resources/assets/plugins/custom/datatables/datatables.bundle.js"></script>
-	<script src="/resources/assets/js/pages/crud/datatables/basic/basic.js"></script>
 </body>
 <!--end::Body-->
 
