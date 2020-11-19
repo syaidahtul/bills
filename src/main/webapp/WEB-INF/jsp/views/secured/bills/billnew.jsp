@@ -232,6 +232,26 @@
             todayBtn: "linked",
             templates: arrows
         });
+	
+        $("#votCode").select2({
+            placeholder: "Search for VOT",
+            allowClear: true,
+            ajax: {
+            	type: "GET",
+	            dataType: 'json',
+	            url: "https://s3p.sabah.gov.my/api_eresit/vot",
+	            timeout : 100000,
+				success : function(data) {
+					console.log("SUCCESS: ", data);
+				},
+				error : function(e) {
+					console.log("ERROR: ", e);
+				},
+				done : function(e) {
+					console.log("DONE");
+				}
+            }
+        });
 	});
 	
 </script>
