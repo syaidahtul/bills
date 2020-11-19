@@ -76,7 +76,8 @@
 							<ul class="menu-nav">
 								<li class="menu-item menu-item-submenu menu-item-rel" data-menu-toggle="click" aria-haspopup="true">
 									<a href="javascript:;" class="menu-link menu-toggle"> 
-										<span class="menu-text">Apps</span> <i class="menu-arrow"></i>
+										<span class="menu-text">Apps</span> 
+										<i class="menu-arrow"></i>
 									</a>
 								</li>
 							</ul>
@@ -189,7 +190,7 @@
 	</script>
 	<!--end::Global Config-->
 	
-	<script src="resources/assets/js/pages/crud/forms/widgets/bootstrap-datepicker.js"></script>
+	<script src="/resources/assets/js/pages/crud/forms/widgets/bootstrap-datepicker.js"></script>
 	<script src="/resources/assets/js/pages/crud/forms/widgets/input-mask.js"></script>
 	<script src="/resources/assets/js/pages/crud/datatables/basic/basic.js"></script>
 	<script src="/resources/assets/js/pages/crud/forms/widgets/select2.js"></script>

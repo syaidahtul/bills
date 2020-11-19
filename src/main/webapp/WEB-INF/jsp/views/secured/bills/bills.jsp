@@ -57,9 +57,9 @@
 				</div>
 				
 				<div class="card-footer">
-					<form:button id="searchBtn" value="search" class="btn btn-primary ripple-surface mb-0"><spring:message code="button.search" /></form:button>
-					<form:button id="newBtn" value="new" class="btn btn-primary ripple-surface mb-0"><spring:message code="button.new" /></form:button>
-					<form:button id="backBtn" value="back" class="btn btn-primary ripple-surface mb-0"><spring:message code="button.back" /></form:button>
+					<form:button id="searchBtn" name="action" value="search" class="btn btn-primary ripple-surface mb-0"><spring:message code="button.search" /></form:button>
+					<form:button id="newBtn" name="action" value="new" class="btn btn-primary ripple-surface mb-0"><spring:message code="button.new" /></form:button>
+					<form:button id="backBtn" name="action" value="back" class="btn btn-primary ripple-surface mb-0"><spring:message code="button.back" /></form:button>
 				</div>
 			</div>
 		</div>
