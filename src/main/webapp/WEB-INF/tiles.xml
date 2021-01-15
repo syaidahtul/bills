@@ -16,6 +16,12 @@
 		<put-attribute name="body" value="" />
 	</definition>
 
+	<!-- LOGIN -->
+	<definition name="login" extends="publictemplate">
+		<put-attribute name="title" value="DAFTAR BIL | LOGIN" />
+		<put-attribute name="body" value="/WEB-INF/jsp/login.jsp" />
+	</definition>
+	
 	<!-- Pages -->
 	<definition name="secured.dashboard" extends="securedtemplate">
 		<put-attribute name="title" value="DAFTAR BIL | Dashboard" />

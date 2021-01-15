@@ -156,6 +156,8 @@ $(document).ready(function() {
 	
 	$('#bill_datatable').dataTable({
         'sAjaxSource': '/secured/bill/list',
+        "processing": true,
+        "serverSide": true,
 		"sAjaxDataProp": "",
 		"order": [[ 0, "asc" ]],
         'bJQueryUI': true,

@@ -42,23 +42,23 @@ public class CategoryController {
 	
 	@GetMapping(value = "/categories")
 	public @ResponseBody List<CategoryDTO> getCategoryList() {
-		List<CategoryDTO> s = categoryService.getCategoryList();
-		return s;
+		List<CategoryDTO> categoryList = categoryService.getCategoryList();
+		return categoryList;
 	}
 	
 	@PostMapping(value = "/category")
 	public String postCategoryList(Locale locale, HttpServletRequest req, HttpServletResponse resp, Model model,
 			@ModelAttribute("categoryForm") CategoryForm categoryForm, BindingResult result) {
 
-		if (WebConstant.ACTION_BACK.equalsIgnoreCase(categoryForm.getAction())) {
+		if (WebConstant.ACTION_BACK.equals(categoryForm.getAction())) {
 			return WebConstant.VIEW_DASHBOARD;
 		}
 		
-		if (WebConstant.ACTION_SEARCH.equalsIgnoreCase(categoryForm.getAction())) {
+		if (WebConstant.ACTION_SEARCH.equals(categoryForm.getAction())) {
 			this.searchCategory(categoryForm, result, model);
 		}
 		
-		if (WebConstant.ACTION_SAVE.equalsIgnoreCase(categoryForm.getAction())) {
+		if (WebConstant.ACTION_SAVE.equals(categoryForm.getAction())) {
 			this.newCategory(categoryForm, result, model);
 		}
 		
